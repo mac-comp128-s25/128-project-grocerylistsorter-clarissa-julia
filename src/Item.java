@@ -1,4 +1,5 @@
 public class Item {
+    //possible reference to canvas to update GUI when quantity updated
 
     private String name;
     private int quantity;

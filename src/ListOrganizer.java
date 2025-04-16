@@ -15,6 +15,9 @@ public class ListOrganizer {
     private List<Item> personalCareList;
     private List<List<Item>> listOrganizer;
 
+    //how best to do undo button - maybe list that is just strings
+
+
     public ListOrganizer(){
         produceList = new ArrayList<>();
         meatSeafoodList = new ArrayList<>();
