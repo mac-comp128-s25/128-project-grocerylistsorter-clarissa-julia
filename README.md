@@ -1,3 +1,3 @@
-# Project Title Goes Here
+# Grocery List Sorter
 
-Info about your project goes here
+Created by Julia Prewitt and Clarissa Sigale for COMP 128 Spring 2025
