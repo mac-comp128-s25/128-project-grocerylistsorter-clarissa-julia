@@ -1,4 +1,5 @@
 import java.util.List;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -35,8 +36,14 @@ public class ListOrganizer {
 
     }
 
-    private void addToList(Item item, String category){
+    private void addToList(Item item){
+        String category = item.getCategory();
+        getList(category).add(item);
+    }
 
+    private void remove(Item item){
+        String category = item.getCategory();
+        getList(category).remove(item);
     }
 
     private double totalCalculator(){
@@ -47,6 +54,40 @@ public class ListOrganizer {
             }
         }
         return total;
+    }
+
+    private List<Item> getList(String category){
+        if (category=="produce"){
+            return produceList;
+        }
+        else if (category=="meatSeafood"){
+            return meatSeafoodList;
+        }
+        else if (category=="dairyEggsList"){
+            return dairyEggsList;
+        }
+        else if(category=="bakery"){
+            return bakeryList;
+        }
+        else if(category=="pantryStaples"){
+            return pantryStaplesList;
+        }
+        else if(category=="frozenFood"){
+            return frozenFoodList;
+        }
+        else if(category=="snacksBeverages"){
+            return snacksBeveragesList;
+        }
+        else if(category=="householdGoods"){
+            return householdGoodsList;
+        }
+        else if(category=="personalCare"){
+            return personalCareList;
+        }
+        else{
+            throw new InvalidParameterException("Invalid category");
+        }
+
     }
     
 }
