@@ -1,3 +1,4 @@
+import java.security.InvalidParameterException;
 import java.util.List;
 
 public class Item {
@@ -9,12 +10,16 @@ public class Item {
     private double bulkPrice;
     private String category;
 
-    public Item(String name, int quantity, double individualPrice, String category){
+    public Item(String name, String quantity, double individualPrice, String category){
+        try{
+            this.quantity = Integer.parseInt(quantity);
+        }catch (NumberFormatException ex) {
+            this.quantity = 1;
+        }
         this.name = name;
-        this.quantity = quantity;
         this.category = category;
         this. individualPrice = individualPrice;
-        bulkPrice = individualPrice * quantity;
+        bulkPrice = individualPrice * this.quantity;
     }
 
     private String getName(){ //primarily for clarification
