@@ -13,7 +13,7 @@ public class Item {
         this.name = name;
         this.quantity = quantity;
         this.category = category;
-        individualPrice = //get from provider
+        individualPrice = individualPrice;
         bulkPrice = individualPrice * quantity;
     }
 
