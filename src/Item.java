@@ -9,7 +9,7 @@ public class Item {
     private double bulkPrice;
     private String category;
 
-    public Item(String name, int quantity, String category){
+    public Item(String name, int quantity, double individualPrice, String category){
         this.name = name;
         this.quantity = quantity;
         this.category = category;
@@ -23,7 +23,7 @@ public class Item {
 
     public double getPrice(){ //for total calculator
         return bulkPrice;
-    } 
+    }
 
     public String getCategory(){
         return category;
