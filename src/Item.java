@@ -42,7 +42,7 @@ public class Item {
 
     
 
-    private String getTitle(){
+    public String getTitle(){
         return name + " x" + quantity + "\n$" + bulkPrice;
     }
     
