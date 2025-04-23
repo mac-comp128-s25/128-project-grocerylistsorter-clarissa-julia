@@ -1,6 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLaf;
+
 
 public class GUI extends JFrame {
     private PlaceholderTextField itemField;
@@ -10,16 +14,29 @@ public class GUI extends JFrame {
     private JScrollPane scrollPane;
     private JButton copyButton, undoButton, totalButton;
     private Button buttonHandler;
+    private JCheckBox darkModeToggle;
 
     public GUI() {
         // Initialize components
         itemField = new PlaceholderTextField("Enter item");
         quantityField = new PlaceholderTextField("Enter quantity");
         outputCombo = new JComboBox<>(new String[]{"Option 1", "Option 2", "Option 3"});
-        displayArea = new JTextArea(10, 30);
+        displayArea = new JTextArea(5, 30);
         displayArea.setEditable(false);
         scrollPane = new JScrollPane(displayArea);
         buttonHandler = new Button();
+        darkModeToggle = new JCheckBox("Dark Mode");
+
+        // Add customized font and padding
+        Font inputFont = new Font("SansSerif", Font.PLAIN, 16);
+        itemField.setFont(inputFont);
+        quantityField.setFont(inputFont);
+        outputCombo.setFont(inputFont);
+
+        itemField.setPreferredSize(new Dimension(200, 40));
+        quantityField.setPreferredSize(new Dimension(200, 40));
+        outputCombo.setPreferredSize(new Dimension(200, 40));
+
 
         // Initialize buttons
         copyButton = new JButton("Copy");
@@ -30,6 +47,20 @@ public class GUI extends JFrame {
         copyButton.addActionListener(buttonHandler::copyToClipboard);
         undoButton.addActionListener(buttonHandler::undoLastAdd);
         totalButton.addActionListener(buttonHandler::calculateTotal);
+        darkModeToggle.addActionListener(e -> {
+            boolean isDark = darkModeToggle.isSelected();
+            try {
+                if (isDark) {
+                    UIManager.setLookAndFeel(new FlatDarkLaf());
+                } else {
+                    UIManager.setLookAndFeel(new FlatLightLaf());
+                }
+                FlatLaf.updateUI();
+            } catch (UnsupportedLookAndFeelException ex) {
+                ex.printStackTrace();
+            }
+        });
+        
 
         // Set layout for the JFrame
         setLayout(new BorderLayout());
@@ -47,6 +78,7 @@ public class GUI extends JFrame {
         buttonPanel.add(copyButton);
         buttonPanel.add(undoButton);
         buttonPanel.add(totalButton);
+        buttonPanel.add(darkModeToggle);
 
         // Add panels to the frame
         add(inputPanel, BorderLayout.WEST);
@@ -61,7 +93,11 @@ public class GUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        // Ensure the GUI is created on the Event Dispatch Thread
-        SwingUtilities.invokeLater(GUI::new);
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception e) {
+            System.err.println("Failed to initialize FlatLaf");
+        }
+         SwingUtilities.invokeLater(GUI::new);
     }
 }
