@@ -10,6 +10,7 @@ public class GUI extends JFrame {
     private PlaceholderTextField itemField;
     private PlaceholderTextField quantityField;
     private JComboBox<String> outputCombo;
+    private JComboBox<String> categoryCombo;
     private JTextArea displayArea;
     private JScrollPane scrollPane;
     private JButton copyButton, undoButton, totalButton;
@@ -21,6 +22,9 @@ public class GUI extends JFrame {
         itemField = new PlaceholderTextField("Enter item");
         quantityField = new PlaceholderTextField("Enter quantity");
         outputCombo = new JComboBox<>(new String[]{"Option 1", "Option 2", "Option 3"});
+        categoryCombo = new JComboBox<>(new String[]{"Produce", "Dairy & Eggs", "Bakery", 
+        "Pantry Staples", "Frozen Food", "Snacks & Beverages", "Household Goods", 
+        "Personal Care Items"}); //adds category drop-down menu
         displayArea = new JTextArea(5, 30);
         displayArea.setEditable(false);
         scrollPane = new JScrollPane(displayArea);
@@ -32,10 +36,12 @@ public class GUI extends JFrame {
         itemField.setFont(inputFont);
         quantityField.setFont(inputFont);
         outputCombo.setFont(inputFont);
+        categoryCombo.setFont(inputFont);
 
         itemField.setPreferredSize(new Dimension(200, 40));
         quantityField.setPreferredSize(new Dimension(200, 40));
         outputCombo.setPreferredSize(new Dimension(200, 40));
+        categoryCombo.setPreferredSize(new Dimension(200, 40));
 
 
         // Initialize buttons
