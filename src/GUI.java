@@ -77,6 +77,7 @@ public class GUI extends JFrame {
         inputPanel.add(itemField);
         inputPanel.add(quantityField);
         inputPanel.add(outputCombo);
+        inputPanel.add(categoryCombo);
 
         // Create button panel and add buttons
         JPanel buttonPanel = new JPanel();
