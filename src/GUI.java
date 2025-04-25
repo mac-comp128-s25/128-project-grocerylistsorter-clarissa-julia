@@ -17,6 +17,7 @@ public class GUI extends JFrame {
     private Button buttonHandler;
     private JCheckBox darkModeToggle;
     private JButton addItemButton;
+    private ListOrganizer organizer;
 
     public GUI() {
         // Initialize components
@@ -24,7 +25,7 @@ public class GUI extends JFrame {
         quantityField = new PlaceholderTextField("Enter quantity");
         outputCombo = new JComboBox<>(new String[]{"Option 1", "Option 2", "Option 3"});
         categoryCombo = new JComboBox<>(new String[]{"Select Category","Produce", "Dairy & Eggs", "Bakery", 
-        "Pantry Staples", "Frozen Food", "Snacks & Beverages", "Household Goods", 
+        "Pantry Staples", "Meat & Seafood", "Frozen Food", "Snacks & Beverages", "Household Goods", 
         "Personal Care Items"}); //adds category drop-down menu
         displayArea = new JTextArea(5, 30);
         displayArea.setEditable(false);
