@@ -35,7 +35,10 @@ public class Button {
             return;
         }
 
+        
         System.out.println("Adding item: " + item + ", Quantity: " + quantity + ", Category: " + category);
 
     }
+
+    
 }

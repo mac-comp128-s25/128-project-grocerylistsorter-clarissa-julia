@@ -33,6 +33,7 @@ public class GUI extends JFrame {
         buttonHandler = new Button();
         darkModeToggle = new JCheckBox("Dark Mode");
         addItemButton = new JButton("Add Item");
+        organizer = new ListOrganizer();
 
         // Add customized font and padding
         Font inputFont = new Font("SansSerif", Font.PLAIN, 16);
@@ -107,6 +108,11 @@ public class GUI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
     }
+    
+    // updates display
+    private void refreshDisplay(){
+        displayArea.setText(organizer.fullListString());
+    }
 
     public static void main(String[] args) {
         try {
@@ -116,4 +122,6 @@ public class GUI extends JFrame {
         }
          SwingUtilities.invokeLater(GUI::new);
     }
+
+    
 }
