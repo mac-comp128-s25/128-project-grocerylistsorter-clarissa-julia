@@ -26,4 +26,16 @@ public class Button {
     public void calculateTotal(ActionEvent e) {
         // Logic to calculate total
     }
+
+    public void addItem(String item, String quantity, String category) {
+        // ToDo: add implementation
+
+        if (category.equals("Select Category")) {
+            System.out.println("Please select a valid category.");
+            return;
+        }
+
+        System.out.println("Adding item: " + item + ", Quantity: " + quantity + ", Category: " + category);
+
+    }
 }

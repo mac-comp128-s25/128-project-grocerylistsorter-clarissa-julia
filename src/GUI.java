@@ -16,13 +16,14 @@ public class GUI extends JFrame {
     private JButton copyButton, undoButton, totalButton;
     private Button buttonHandler;
     private JCheckBox darkModeToggle;
+    private JButton addItemButton;
 
     public GUI() {
         // Initialize components
         itemField = new PlaceholderTextField("Enter item");
         quantityField = new PlaceholderTextField("Enter quantity");
         outputCombo = new JComboBox<>(new String[]{"Option 1", "Option 2", "Option 3"});
-        categoryCombo = new JComboBox<>(new String[]{"Produce", "Dairy & Eggs", "Bakery", 
+        categoryCombo = new JComboBox<>(new String[]{"Select Category","Produce", "Dairy & Eggs", "Bakery", 
         "Pantry Staples", "Frozen Food", "Snacks & Beverages", "Household Goods", 
         "Personal Care Items"}); //adds category drop-down menu
         displayArea = new JTextArea(5, 30);
@@ -30,6 +31,7 @@ public class GUI extends JFrame {
         scrollPane = new JScrollPane(displayArea);
         buttonHandler = new Button();
         darkModeToggle = new JCheckBox("Dark Mode");
+        addItemButton = new JButton("Add Item");
 
         // Add customized font and padding
         Font inputFont = new Font("SansSerif", Font.PLAIN, 16);
@@ -66,6 +68,11 @@ public class GUI extends JFrame {
                 ex.printStackTrace();
             }
         });
+        addItemButton.addActionListener(e -> buttonHandler.addItem(
+            quantityField.getText(),
+            (String) outputCombo.getSelectedItem(),
+            (String) categoryCombo.getSelectedItem()
+        ));
         
 
         // Set layout for the JFrame
@@ -78,6 +85,7 @@ public class GUI extends JFrame {
         inputPanel.add(quantityField);
         inputPanel.add(outputCombo);
         inputPanel.add(categoryCombo);
+        inputPanel.add(addItemButton);
 
         // Create button panel and add buttons
         JPanel buttonPanel = new JPanel();
