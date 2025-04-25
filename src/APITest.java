@@ -14,11 +14,16 @@ public class APITest {
         // extract json string and make it look nice
         String itemList = response.getBody().toPrettyString();
         Map<String, Double> optionList = OptionList.getOptionList(itemList);
-        for (Map.Entry<String, Double> entry : optionList.entrySet()){
-            System.out.print(entry.getKey());
-            System.out.println(" $" + entry.getValue());
+        // for (Map.Entry<String, Double> entry : optionList.entrySet()){
+        //     System.out.print(entry.getKey());
+        //     // System.out.println(" $" + entry.getValue());
             
-        }
+        // }
+
+        Item testItem = new Item("Eggs", 1, 8, "Dairy & Eggs");
+
+        ListOrganizer listOrganizer = new ListOrganizer();
+        listOrganizer.add
         
     }
 }
