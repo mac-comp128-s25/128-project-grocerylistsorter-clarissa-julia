@@ -17,6 +17,7 @@ public class GUI extends JFrame {
     private Button buttonHandler;
     private JCheckBox darkModeToggle;
     private JButton addItemButton;
+    private ListOrganizer organizer;
 
     public GUI() {
         // Initialize components

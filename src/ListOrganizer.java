@@ -36,17 +36,17 @@ public class ListOrganizer {
 
     }
 
-    private void addToList(Item item){
+    public void addToList(Item item){
         String category = item.getCategory();
         getList(category).add(item);
     }
 
-    private void remove(Item item){
+    public void remove(Item item){
         String category = item.getCategory();
         getList(category).remove(item);
     }
 
-    private double totalCalculator(){
+    public double totalCalculator(){
         double total = 0;
         for (List<Item> list : listOrganizer){
             for (Item item : list){
@@ -56,7 +56,7 @@ public class ListOrganizer {
         return total;
     }
 
-    private List<Item> getList(String category){
+    public List<Item> getList(String category){
         if (category=="Produce"){
             return produceList;
         }
@@ -88,6 +88,33 @@ public class ListOrganizer {
             throw new InvalidParameterException("Invalid category");
         }
 
+    }
+
+    // creates a string of the enture section
+    public String fullListString() {
+        StringBuilder output = new StringBuilder();
+    
+        addSection(output, "Produce", produceList);
+        addSection(output, "Dairy & Eggs", dairyEggsList);
+        addSection(output, "Bakery", bakeryList);
+        addSection(output, "Pantry Staples", pantryStaplesList);
+        addSection(output, "Frozen Food", frozenFoodList);
+        addSection(output, "Snacks & Beverages", snacksBeveragesList);
+        addSection(output, "Household Goods", householdGoodsList);
+        addSection(output, "Personal Care Items", personalCareList);
+    
+        return output.toString();
+    }
+    
+    // helper method for fullListString to create section headers and put on new lines
+    private void addSection(StringBuilder output, String header, List<Item> items) {
+        if (!items.isEmpty()) {
+            output.append("== ").append(header).append(" ==\n");
+            for (Item item : items) {
+                output.append(item.getTitle()).append("\n");
+            }
+            output.append("\n");
+        }
     }
     
 }
