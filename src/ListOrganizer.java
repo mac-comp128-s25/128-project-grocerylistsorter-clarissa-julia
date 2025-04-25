@@ -57,31 +57,31 @@ public class ListOrganizer {
     }
 
     private List<Item> getList(String category){
-        if (category=="produce"){
+        if (category=="Produce"){
             return produceList;
         }
-        else if (category=="meatSeafood"){
+        else if (category=="Meat & Seafood"){
             return meatSeafoodList;
         }
-        else if (category=="dairyEggsList"){
+        else if (category=="Dairy & Eggs"){
             return dairyEggsList;
         }
-        else if(category=="bakery"){
+        else if(category=="Bakery"){
             return bakeryList;
         }
-        else if(category=="pantryStaples"){
+        else if(category=="Pantry Staples"){
             return pantryStaplesList;
         }
-        else if(category=="frozenFood"){
+        else if(category=="Frozen Food"){
             return frozenFoodList;
         }
-        else if(category=="snacksBeverages"){
+        else if(category=="Snacks & Beverages"){
             return snacksBeveragesList;
         }
-        else if(category=="householdGoods"){
+        else if(category=="Household Goods"){
             return householdGoodsList;
         }
-        else if(category=="personalCare"){
+        else if(category=="Personal Care Items"){
             return personalCareList;
         }
         else{
