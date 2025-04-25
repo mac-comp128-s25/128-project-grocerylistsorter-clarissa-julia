@@ -20,10 +20,10 @@ public class APITest {
             
         // }
 
-        Item testItem = new Item("Eggs", 1, 8, "Dairy & Eggs");
+        Item testItem = new Item("Eggs", "1", 8.00, "Dairy & Eggs");
 
         ListOrganizer listOrganizer = new ListOrganizer();
-        listOrganizer.add
+        listOrganizer.addToList(testItem);
         
     }
 }
