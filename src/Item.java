@@ -1,6 +1,3 @@
-import java.security.InvalidParameterException;
-import java.util.List;
-
 public class Item {
     //possible reference to canvas to update GUI when quantity updated
 
@@ -10,13 +7,11 @@ public class Item {
     private double bulkPrice;
     private String category;
 
-    public Item(String name, String quantity, double individualPrice, String category){
-        try{
-            this.quantity = Integer.parseInt(quantity);
-        }catch (NumberFormatException ex) {
-            this.quantity = 1;
-        }
+    public Item(String name, int quantity, double individualPrice, String category){
+        if (quantity == 0){
+            quantity = 1;}
         this.name = name;
+        this.quantity = quantity;
         this.category = category;
         this. individualPrice = individualPrice;
         bulkPrice = individualPrice * this.quantity;
