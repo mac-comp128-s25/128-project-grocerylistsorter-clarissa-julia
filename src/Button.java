@@ -35,6 +35,9 @@ public class Button {
     }
 
     public void addItem(String item, String price, String quantity, String category) {
+        // ToDo: add implementation
+        // listOrganizer.addToList(selected item dropdown, inputted quantity (String), individual price from map, selected category dropdown)
+
         if (category.equals("Select Category")) {
             System.out.println("Please select a valid category.");
             return;

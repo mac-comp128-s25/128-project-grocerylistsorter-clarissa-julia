@@ -12,18 +12,23 @@ public class APITest {
             .asJson();
             
         // extract json string and make it look nice
-        String itemList = response.getBody().toPrettyString();
-        Map<String, Double> optionList = OptionList.getOptionList(itemList);
+        // String itemList = response.getBody().toPrettyString();
+        // Map<String, Double> optionList = OptionList.getOptionList(itemList);
         // for (Map.Entry<String, Double> entry : optionList.entrySet()){
         //     System.out.print(entry.getKey());
-        //     // System.out.println(" $" + entry.getValue());
+        //     System.out.println(" $" + entry.getValue());
             
         // }
 
-        Item testItem = new Item("Eggs", "1", 8.00, "Dairy & Eggs");
+        Item testItem = new Item("Eggs", 6, 8.75, "Dairy & Eggs");
+        Item testItem2 = new Item("Bread", 2, 4, "Bakery");
+        Item testItem3 = new Item("Shampoo", 1, 6, "Personal Care Items");
 
         ListOrganizer listOrganizer = new ListOrganizer();
         listOrganizer.addToList(testItem);
-        
+        listOrganizer.addToList(testItem2);
+        listOrganizer.addToList(testItem3);
+        System.out.println(listOrganizer.fullListString());
+    
     }
 }
