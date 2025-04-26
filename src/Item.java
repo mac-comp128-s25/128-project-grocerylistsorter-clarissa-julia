@@ -22,7 +22,7 @@ public class Item {
         bulkPrice = individualPrice * this.quantity;
     }
 
-    private String getName(){ //primarily for clarification
+    public String getName(){ //primarily for clarification
         return name;
     } 
 
@@ -40,7 +40,9 @@ public class Item {
         //update ui somehow
     }
 
-    
+    public int getQuantity() {
+        return quantity;
+    }    
 
     public String getTitle(){
         return name + " x" + quantity + "\n$" + bulkPrice;

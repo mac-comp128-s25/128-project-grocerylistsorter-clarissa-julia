@@ -117,4 +117,41 @@ public class ListOrganizer {
         }
     }
     
+    public void clearAll() {
+        for (List<Item> list : listOrganizer) {
+            list.clear();
+        }
+    }
+    
+    public void removeItem(String itemName) {
+        for (List<Item> list : listOrganizer) {
+            list.removeIf(item -> item.getName().equals(itemName));
+        }
+    }    
+
+    public List<Item> getAllItems() {
+        List<Item> allItems = new ArrayList<>();
+        for (List<Item> list : listOrganizer) {
+            allItems.addAll(list);
+        }
+        return allItems;
+    }
+    
+
+    // helps to update the visual of the table
+    public String[][] toTableData() {
+        List<Item> items = getAllItems();
+        String[][] tableData = new String[items.size()][4]; 
+    
+        for (int i = 0; i < items.size(); i++) {
+            Item item = items.get(i);
+            tableData[i][0] = item.getName();
+            tableData[i][1] = String.valueOf(item.getQuantity());
+            tableData[i][2] = item.getCategory();
+            tableData[i][3] = String.format("$%.2f", item.getPrice());
+        }
+    
+        return tableData;
+    }
+    
 }

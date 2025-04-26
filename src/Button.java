@@ -9,6 +9,13 @@ public class Button {
     private List<String> items = new ArrayList<>();
     private List<String> prices = new ArrayList<>();
     private List<String> history = new ArrayList<>();
+    private ListOrganizer organizer;
+    private GUI gui;
+
+    public Button(ListOrganizer organizer, GUI gui) {
+        this.organizer = organizer;
+        this.gui = gui;
+    }
 
     public void copyToClipboard(ActionEvent e) {
         String text = String.join("\n", items);
@@ -27,18 +34,30 @@ public class Button {
         // Logic to calculate total
     }
 
-    public void addItem(String item, String quantity, String category) {
-        // ToDo: add implementation
-
+    public void addItem(String item, String price, String quantity, String category) {
         if (category.equals("Select Category")) {
             System.out.println("Please select a valid category.");
             return;
         }
-
-        
-        System.out.println("Adding item: " + item + ", Quantity: " + quantity + ", Category: " + category);
-
+    
+        double priceValue; //TODO: temporary placeholder until we get call correct
+        try {
+            priceValue = Double.parseDouble(price);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid price entered.");
+            return;
+        }
+    
+        organizer.addToList(new Item(item, quantity, priceValue, category));
+        gui.refreshDisplay();
     }
+    
+
+    public void clearAllLists() {
+        organizer.clearAll();
+        gui.refreshDisplay();
+    }
+    
 
     
 }
