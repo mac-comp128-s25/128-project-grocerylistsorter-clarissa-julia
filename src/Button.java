@@ -34,7 +34,7 @@ public class Button {
         // Logic to calculate total
     }
 
-    public void addItem(String item, String price, String quantity, String category) {
+    public void addItem(String item, double price, int quantity, String category) {
         // ToDo: add implementation
         // listOrganizer.addToList(selected item dropdown, inputted quantity (String), individual price from map, selected category dropdown)
 
@@ -44,14 +44,8 @@ public class Button {
         }
     
         double priceValue; //TODO: temporary placeholder until we get call correct
-        try {
-            priceValue = Double.parseDouble(price);
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid price entered.");
-            return;
-        }
     
-        organizer.addToList(new Item(item, quantity, priceValue, category));
+        organizer.addToList(new Item(item, quantity, price, category));
         gui.refreshDisplay();
     }
     

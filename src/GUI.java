@@ -85,9 +85,9 @@ public class GUI extends JFrame {
         });
         addItemButton.addActionListener(e -> {
             String item = itemField.getText();
-            String quantity = quantityLabel.getText();
+            int quantity = Integer.parseInt(quantityLabel.getText());
             String category = (String) categoryCombo.getSelectedItem();
-            String price = "1.00";
+            double price = 1.00;
             buttonHandler.addItem(item, price, quantity, category);
             itemField.setText("");
             quantityLabel.setText("1");
