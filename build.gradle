@@ -12,6 +12,8 @@ dependencies {
     implementation 'com.konghq:unirest-java:3.14.5'
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.formdev:flatlaf:3.4'
+    implementation 'com.formdev:flatlaf-intellij-themes:3.4'
+    implementation 'com.formdev:flatlaf-material-theme:3.4'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.9.+'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
