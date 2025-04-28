@@ -21,10 +21,11 @@ public class GUI extends JFrame {
     private JButton clearButton;
     private JButton plus;
     private JButton minus;
-    private int[] quantity = new int[]{0}; // starts at 0
+    private int[] quantity = new int[]{1}; // starts at 1
 
     public GUI() {
         // Initialize components
+        organizer = new ListOrganizer();
         itemField = new PlaceholderTextField("Enter item");
         outputCombo = new JComboBox<>(new String[]{"Option 1", "Option 2", "Option 3"}); // TODO: Implement with actual text
         categoryCombo = new JComboBox<>(new String[]{"Select Category","Produce", "Dairy & Eggs", "Bakery", 
@@ -34,7 +35,6 @@ public class GUI extends JFrame {
         scrollPane = new JScrollPane(displayArea);
         buttonHandler = new Button(organizer, this);
         addItemButton = new JButton("Add Item");
-        organizer = new ListOrganizer();
         clearButton = new JButton("Clear All");
         copyButton = new JButton("Copy");
         removeButton = new JButton("Remove Selected");
@@ -44,22 +44,6 @@ public class GUI extends JFrame {
         plus = new JButton("+");
         minus = new JButton("-");
 
-        // FlatLaf Light theme customization
-        try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-            // Customize UIManager with green theme colors
-            UIManager.put("Button.background", new Color(76, 175, 80));  // Green background for buttons
-            UIManager.put("Button.foreground", Color.WHITE);  // White text color for buttons
-            UIManager.put("TextField.background", new Color(240, 248, 240));  // Light greenish background for text fields
-            UIManager.put("TextField.foreground", Color.BLACK);  // Black text for text fields
-            UIManager.put("ComboBox.background", new Color(240, 248, 240));  // Light greenish background for combo boxes
-            UIManager.put("ComboBox.foreground", Color.BLACK);  // Black text for combo boxes
-            UIManager.put("Panel.background", new Color(245, 255, 245));  // Very light green background for panels
-            UIManager.put("Label.foreground", new Color(34, 139, 34));  // Dark green text for labels
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
-        
         // Add customized font and padding
         Font inputFont = new Font("SansSerif", Font.PLAIN, 16);
         itemField.setFont(inputFont);
@@ -171,10 +155,26 @@ public class GUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception e) {
-            System.err.println("Failed to initialize FlatLaf");
+        try{
+            UIManager.put("Component.arc", 20);
+            UIManager.put("Button.arc", 20);
+            UIManager.put("TextComponent.arc", 20);
+            UIManager.put("Table.arc", 20);
+            UIManager.put("ScrollPane.arc", 20);
+            UIManager.put("TabbedPane.tabArc", 20);
+            UIManager.put("CheckBox.arc", 20);
+            UIManager.put("ComboBox.arc", 20);
+            UIManager.put("PopupMenu.borderArc", 20);
+            UIManager.put("Component.innerFocusWidth", 2);
+            UIManager.put("Component.focusWidth", 2);
+            UIManager.put("Component.focusColor", new Color(76, 175, 80));
+            UIManager.put("TextField.margin", new Insets(10, 10, 10, 10));
+            UIManager.put("ComboBox.padding", new Insets(10, 10, 10, 10));
+            UIManager.put("Button.padding", new Insets(10, 20, 10, 20));
+
+            FlatLightLaf.setup();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
          SwingUtilities.invokeLater(GUI::new);
     }
