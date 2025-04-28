@@ -29,7 +29,7 @@ public class GUI extends JFrame {
     public GUI() {
         // Initialize components
         itemField = new PlaceholderTextField("Enter item");
-        outputCombo = new JComboBox<>(new String[]{"Option 1", "Option 2", "Option 3"});
+        outputCombo = new JComboBox<>(new String[]{"Option 1", "Option 2", "Option 3"}); // TODO: Implement with actual text
         categoryCombo = new JComboBox<>(new String[]{"Select Category","Produce", "Dairy & Eggs", "Bakery", 
         "Pantry Staples", "Meat & Seafood", "Frozen Food", "Snacks & Beverages", "Household Goods", 
         "Personal Care Items"}); //adds category drop-down menu
@@ -149,8 +149,6 @@ public class GUI extends JFrame {
         DefaultTableModel model = new DefaultTableModel(tableData, columnNames);
         displayArea.setModel(model); // forces the table to refresh
     }
-
-    
 
     public static void main(String[] args) {
         try {
