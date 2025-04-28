@@ -1,12 +1,10 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
 import java.awt.*;
 import java.awt.event.*;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
-
 
 public class GUI extends JFrame {
     private PlaceholderTextField itemField;
@@ -18,13 +16,12 @@ public class GUI extends JFrame {
     private JScrollPane scrollPane;
     private JButton copyButton, removeButton, totalButton;
     private Button buttonHandler;
-    private JCheckBox darkModeToggle;
     private JButton addItemButton;
     private ListOrganizer organizer;
     private JButton clearButton;
     private JButton plus;
     private JButton minus;
-    private int[] quantity = new int[]{1}; // starts at 1
+    private int[] quantity = new int[]{0}; // starts at 0
 
     public GUI() {
         // Initialize components
@@ -36,7 +33,6 @@ public class GUI extends JFrame {
         displayArea = new JTable();
         scrollPane = new JScrollPane(displayArea);
         buttonHandler = new Button(organizer, this);
-        darkModeToggle = new JCheckBox("Dark Mode");
         addItemButton = new JButton("Add Item");
         organizer = new ListOrganizer();
         clearButton = new JButton("Clear All");
@@ -48,7 +44,22 @@ public class GUI extends JFrame {
         plus = new JButton("+");
         minus = new JButton("-");
 
-
+        // FlatLaf Light theme customization
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+            // Customize UIManager with green theme colors
+            UIManager.put("Button.background", new Color(76, 175, 80));  // Green background for buttons
+            UIManager.put("Button.foreground", Color.WHITE);  // White text color for buttons
+            UIManager.put("TextField.background", new Color(240, 248, 240));  // Light greenish background for text fields
+            UIManager.put("TextField.foreground", Color.BLACK);  // Black text for text fields
+            UIManager.put("ComboBox.background", new Color(240, 248, 240));  // Light greenish background for combo boxes
+            UIManager.put("ComboBox.foreground", Color.BLACK);  // Black text for combo boxes
+            UIManager.put("Panel.background", new Color(245, 255, 245));  // Very light green background for panels
+            UIManager.put("Label.foreground", new Color(34, 139, 34));  // Dark green text for labels
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+        
         // Add customized font and padding
         Font inputFont = new Font("SansSerif", Font.PLAIN, 16);
         itemField.setFont(inputFont);
@@ -58,6 +69,29 @@ public class GUI extends JFrame {
         itemField.setPreferredSize(new Dimension(200, 40));
         outputCombo.setPreferredSize(new Dimension(200, 40));
         categoryCombo.setPreferredSize(new Dimension(200, 40));
+
+        // Style Buttons:
+        addItemButton.putClientProperty("JButton.buttonType", "roundRect");
+        addItemButton.setBackground(new Color(76, 175, 80));
+        addItemButton.setForeground(Color.WHITE);
+    
+        clearButton.putClientProperty("JButton.buttonType", "roundRect");
+        clearButton.setBackground(new Color(244, 67, 54));
+        clearButton.setForeground(Color.WHITE);
+    
+        copyButton.putClientProperty("JButton.buttonType", "roundRect");
+        totalButton.putClientProperty("JButton.buttonType", "roundRect");
+        removeButton.putClientProperty("JButton.buttonType", "roundRect");
+        plus.putClientProperty("JButton.buttonType", "roundRect");
+        minus.putClientProperty("JButton.buttonType", "roundRect");
+    
+        // Styling table
+        displayArea.setFillsViewportHeight(true);
+        displayArea.setRowHeight(30);
+        displayArea.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 16));
+        displayArea.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        displayArea.setSelectionBackground(new Color(220, 240, 255));
+        displayArea.setSelectionForeground(Color.BLACK);
 
         // Set button actions
         copyButton.addActionListener(buttonHandler::copyToClipboard);
@@ -70,19 +104,6 @@ public class GUI extends JFrame {
             }
         });        
         totalButton.addActionListener(buttonHandler::calculateTotal);
-        darkModeToggle.addActionListener(e -> {
-            boolean isDark = darkModeToggle.isSelected();
-            try {
-                if (isDark) {
-                    UIManager.setLookAndFeel(new FlatDarkLaf());
-                } else {
-                    UIManager.setLookAndFeel(new FlatLightLaf());
-                }
-                FlatLaf.updateUI();
-            } catch (UnsupportedLookAndFeelException ex) {
-                ex.printStackTrace();
-            }
-        });
         addItemButton.addActionListener(e -> {
             String item = itemField.getText();
             int quantity = Integer.parseInt(quantityLabel.getText());
@@ -126,7 +147,6 @@ public class GUI extends JFrame {
         buttonPanel.add(copyButton);
         buttonPanel.add(removeButton);
         buttonPanel.add(totalButton);
-        buttonPanel.add(darkModeToggle);
         buttonPanel.add(clearButton);
 
         // Add panels to the frame
