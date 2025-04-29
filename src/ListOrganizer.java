@@ -102,6 +102,7 @@ public class ListOrganizer {
         addSection(output, "Snacks & Beverages", snacksBeveragesList);
         addSection(output, "Household Goods", householdGoodsList);
         addSection(output, "Personal Care Items", personalCareList);
+        addSection(output, "Total");
     
         return output.toString();
     }
@@ -115,6 +116,13 @@ public class ListOrganizer {
             }
             output.append("\n");
         }
+    }
+
+    //overloaded method
+    private void addSection(StringBuilder output, String header) {
+        output.append("== ").append(header).append(" ==\n");
+        output.append("$"+totalCalculator()).append("\n");
+        output.append("\n");
     }
     
     public void clearAll() {
