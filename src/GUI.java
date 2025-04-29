@@ -1,16 +1,15 @@
 import javax.swing.*;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.DocumentEvent;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Map;
 import java.util.Vector;
-
 import com.formdev.flatlaf.FlatLightLaf;
-
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
-
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
 
@@ -31,12 +30,15 @@ public class GUI extends JFrame {
     private JButton minus;
     private int[] quantity = new int[] { 1 }; // starts at 1
     private Map<String, Double> optionList;
+    private Timer debounceTimer;
+    private static final int DEBOUNCE_DELAY = 250; // milliseconds
+
 
     public GUI() {
         // Initialize components
         organizer = new ListOrganizer();
         itemField = new PlaceholderTextField("Enter item");
-        outputCombo = new JComboBox<>(); // TODO: Implement with actual text
+        outputCombo = new JComboBox<>(); // 
         categoryCombo = new JComboBox<>(new String[] { "Select Category", "Produce", "Dairy & Eggs", "Bakery",
             "Pantry Staples", "Meat & Seafood", "Frozen Food", "Snacks & Beverages", "Household Goods",
             "Personal Care Items" }); // adds category drop-down menu
@@ -52,6 +54,25 @@ public class GUI extends JFrame {
         quantityLabel = new JLabel("1");
         plus = new JButton("+");
         minus = new JButton("-");
+
+        // add document listener to item field
+
+        itemField.getDocument().addDocumentListener((new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e){
+                debounceFetch();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                debounceFetch();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e){
+                debounceFetch();
+            }
+        }));
 
         // Add customized font and padding
         Font inputFont = new Font("SansSerif", Font.PLAIN, 16);
@@ -154,22 +175,70 @@ public class GUI extends JFrame {
         setVisible(true);
     }
 
+    // adds timer to delay serach
+    private void debounceFetch() {
+        if (debounceTimer != null && debounceTimer.isRunning()) {
+            debounceTimer.restart();
+        } else {
+            debounceTimer = new Timer(DEBOUNCE_DELAY, e -> {
+                debounceTimer.stop();
+                fetchSuggestionsInBackground();
+            });
+            debounceTimer.setRepeats(false);
+            debounceTimer.start();
+        }
+    }
+
+    // method to fetch suggestions for item combo box
+    private void fetchSuggestionsInBackground(){
+        String itemName = itemField.getText().trim();
+        if (itemName.length() < 2) return;
+    
+        new SwingWorker<Vector<String>, Void>() {
+            @Override
+            protected Vector<String> doInBackground() {
+                try {
+                    HttpResponse<JsonNode> response = Unirest.get("https://api-to-find-grocery-prices.p.rapidapi.com/amazon?query=" + itemName)
+                        .header("x-rapidapi-key", "52616f87aamsh0800cd10f770123p1199acjsnba1b79044cb2")
+                        .header("x-rapidapi-host", "api-to-find-grocery-prices.p.rapidapi.com")
+                        .asJson();
+    
+                    if (response.getStatus() == 200) {
+                        String itemList = response.getBody().toPrettyString();
+                        optionList = OptionList.getOptionList(itemList);
+                        return OptionList.getOptionVector(optionList);
+                    } else {
+                        System.out.println("API error: " + response.getStatus());
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                return new Vector<>(); // empty on failure
+            }
+    
+            @Override
+            protected void done() {
+                try {
+                    Vector<String> suggestions = get();
+                    outputCombo.setModel(new DefaultComboBoxModel<>(suggestions));
+                    outputCombo.setMaximumRowCount(6);
+                    Object comp = outputCombo.getUI().getAccessibleChild(outputCombo, 0);
+                    if (comp instanceof JPopupMenu popup) {
+                        Dimension size = popup.getPreferredSize();
+                        size.height = 200; // Max height in pixels
+                        popup.setPreferredSize(size);
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }.execute();
+    }
+
     // updates display
     public void refreshDisplay() {
         String[][] tableData = organizer.toTableData(); // get updated data
         String[] columnNames = {"Item", "Quantity", "Category", "Price"};
-        String itemName = itemField.getText();
-
-        HttpResponse<JsonNode> response = Unirest.get("https://api-to-find-grocery-prices.p.rapidapi.com/amazon?query="+itemName)
-            .header("x-rapidapi-key", "52616f87aamsh0800cd10f770123p1199acjsnba1b79044cb2")
-            .header("x-rapidapi-host", "api-to-find-grocery-prices.p.rapidapi.com")
-            .asJson();
-            
-        // extract json string and make it look nice
-        String itemList = response.getBody().toPrettyString();
-        this.optionList = OptionList.getOptionList(itemList);
-        Vector optionVector = OptionList.getOptionVector(optionList);
-        outputCombo = new JComboBox<>(optionVector);
         DefaultTableModel model = new DefaultTableModel(tableData, columnNames);
         displayArea.setModel(model); // forces the table to refresh
     }
