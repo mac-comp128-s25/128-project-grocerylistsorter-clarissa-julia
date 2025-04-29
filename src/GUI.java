@@ -168,9 +168,8 @@ public class GUI extends JFrame {
         // extract json string and make it look nice
         String itemList = response.getBody().toPrettyString();
         this.optionList = OptionList.getOptionList(itemList);
-        Vector optionVector; //TODO - set up vector of Strings 
-        //outputCombo
-
+        Vector optionVector = OptionList.getOptionVector(optionList);
+        outputCombo = new JComboBox<>(optionVector);
         DefaultTableModel model = new DefaultTableModel(tableData, columnNames);
         displayArea.setModel(model); // forces the table to refresh
     }

@@ -1,5 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
+
 import org.json.*;
 import kong.unirest.Unirest;
 import kong.unirest.GetRequest;
@@ -23,14 +25,14 @@ public class OptionList {
             optionList.put(name, price);
         }
         return optionList;
+    }
 
-
-       
-
-        
-
-
-
+    public static Vector<String> getOptionVector(Map<String, Double> optionList){
+        Vector<String> optionVector = new Vector<>();
+        for (String itemName : optionList.keySet()){
+            optionVector.add(itemName);
+        }
+        return optionVector;
     }
 
     private static HttpRequest<GetRequest> header(String string, String string2) {
