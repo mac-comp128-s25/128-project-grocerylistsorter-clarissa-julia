@@ -2,7 +2,15 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Map;
+import java.util.Vector;
+
 import com.formdev.flatlaf.FlatLightLaf;
+
+import kong.unirest.HttpResponse;
+import kong.unirest.JsonNode;
+import kong.unirest.Unirest;
+
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
 
@@ -21,16 +29,17 @@ public class GUI extends JFrame {
     private JButton clearButton;
     private JButton plus;
     private JButton minus;
-    private int[] quantity = new int[]{1}; // starts at 1
+    private int[] quantity = new int[] { 1 }; // starts at 1
+    private Map<String, Double> optionList;
 
     public GUI() {
         // Initialize components
         organizer = new ListOrganizer();
         itemField = new PlaceholderTextField("Enter item");
-        outputCombo = new JComboBox<>(new String[]{"Option 1", "Option 2", "Option 3"}); // TODO: Implement with actual text
-        categoryCombo = new JComboBox<>(new String[]{"Select Category","Produce", "Dairy & Eggs", "Bakery", 
-        "Pantry Staples", "Meat & Seafood", "Frozen Food", "Snacks & Beverages", "Household Goods", 
-        "Personal Care Items"}); //adds category drop-down menu
+        outputCombo = new JComboBox<>(); // TODO: Implement with actual text
+        categoryCombo = new JComboBox<>(new String[] { "Select Category", "Produce", "Dairy & Eggs", "Bakery",
+            "Pantry Staples", "Meat & Seafood", "Frozen Food", "Snacks & Beverages", "Household Goods",
+            "Personal Care Items" }); // adds category drop-down menu
         displayArea = new JTable();
         scrollPane = new JScrollPane(displayArea);
         buttonHandler = new Button(organizer, this);
@@ -58,17 +67,17 @@ public class GUI extends JFrame {
         addItemButton.putClientProperty("JButton.buttonType", "roundRect");
         addItemButton.setBackground(new Color(76, 175, 80));
         addItemButton.setForeground(Color.WHITE);
-    
+
         clearButton.putClientProperty("JButton.buttonType", "roundRect");
         clearButton.setBackground(new Color(244, 67, 54));
         clearButton.setForeground(Color.WHITE);
-    
+
         copyButton.putClientProperty("JButton.buttonType", "roundRect");
         totalButton.putClientProperty("JButton.buttonType", "roundRect");
         removeButton.putClientProperty("JButton.buttonType", "roundRect");
         plus.putClientProperty("JButton.buttonType", "roundRect");
         minus.putClientProperty("JButton.buttonType", "roundRect");
-    
+
         // Styling table
         displayArea.setFillsViewportHeight(true);
         displayArea.setRowHeight(30);
@@ -86,7 +95,7 @@ public class GUI extends JFrame {
                 organizer.removeItem(item); // TODO: to implement this
                 refreshDisplay();
             }
-        });        
+        });
         totalButton.addActionListener(buttonHandler::calculateTotal);
         addItemButton.addActionListener(e -> {
             String item = itemField.getText();
@@ -96,7 +105,7 @@ public class GUI extends JFrame {
             buttonHandler.addItem(item, price, quantity, category);
             itemField.setText("");
             quantityLabel.setText("1");
-        });        
+        });
         clearButton.addActionListener(e -> buttonHandler.clearAllLists());
         plus.addActionListener(e -> {
             quantity[0]++;
@@ -144,18 +153,30 @@ public class GUI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
     }
-    
+
     // updates display
     public void refreshDisplay() {
         String[][] tableData = organizer.toTableData(); // get updated data
         String[] columnNames = {"Item", "Quantity", "Category", "Price"};
+        String itemName = itemField.getText();
+
+        HttpResponse<JsonNode> response = Unirest.get("https://api-to-find-grocery-prices.p.rapidapi.com/amazon?query="+itemName)
+            .header("x-rapidapi-key", "52616f87aamsh0800cd10f770123p1199acjsnba1b79044cb2")
+            .header("x-rapidapi-host", "api-to-find-grocery-prices.p.rapidapi.com")
+            .asJson();
+            
+        // extract json string and make it look nice
+        String itemList = response.getBody().toPrettyString();
+        this.optionList = OptionList.getOptionList(itemList);
+        Vector optionVector; //TODO - set up vector of Strings 
+        //outputCombo
 
         DefaultTableModel model = new DefaultTableModel(tableData, columnNames);
         displayArea.setModel(model); // forces the table to refresh
     }
 
     public static void main(String[] args) {
-        try{
+        try {
             UIManager.put("Component.arc", 20);
             UIManager.put("Button.arc", 20);
             UIManager.put("TextComponent.arc", 20);
@@ -176,8 +197,8 @@ public class GUI extends JFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-         SwingUtilities.invokeLater(GUI::new);
+        SwingUtilities.invokeLater(GUI::new);
     }
 
-    
+
 }

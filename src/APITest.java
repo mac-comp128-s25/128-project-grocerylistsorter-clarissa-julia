@@ -12,7 +12,8 @@ public class APITest {
             .asJson();
             
         // extract json string and make it look nice
-        // String itemList = response.getBody().toPrettyString();
+        String itemList = response.getBody().toPrettyString();
+
         // Map<String, Double> optionList = OptionList.getOptionList(itemList);
         // for (Map.Entry<String, Double> entry : optionList.entrySet()){
         //     System.out.print(entry.getKey());
