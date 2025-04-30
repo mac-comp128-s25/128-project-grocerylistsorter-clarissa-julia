@@ -34,13 +34,7 @@ public class Button {
     //     gui.refreshDisplay();
     // }
 
-    public void calculateTotal(ActionEvent e) {
-        // Logic to calculate total
-    }
-
     public void addItem(String item, double price, int quantity, String category) {
-        // ToDo: add implementation
-        // listOrganizer.addToList(selected item dropdown, inputted quantity (String), individual price from map, selected category dropdown)
 
         if (category.equals("Select Category")) {
             System.out.println("Please select a valid category.");

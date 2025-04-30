@@ -131,9 +131,13 @@ public class ListOrganizer {
         }
     }
     
-    public void removeItem(String itemName) {
-        for (List<Item> list : listOrganizer) {
-            list.removeIf(item -> item.getName().equals(itemName));
+    public void removeItem(String itemName, double price, String category) {
+        List<Item> list = getList(category);
+        for (Item item : list) {
+            if (item.getName() == itemName && item.getPrice() == price){
+                list.remove(item);
+                break;
+            }  
         }
     }    
 

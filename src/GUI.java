@@ -30,8 +30,8 @@ public class GUI extends JFrame {
     private JButton minus;
     private int[] quantity = new int[] { 1 }; // starts at 1
     private Map<String, Double> optionList;
-    private Timer debounceTimer;
-    private static final int DEBOUNCE_DELAY = 250; // milliseconds
+    // private Timer debounceTimer;
+    // private static final int DEBOUNCE_DELAY = 250; // milliseconds
 
 
     public GUI() {
@@ -108,29 +108,37 @@ public class GUI extends JFrame {
         displayArea.setSelectionForeground(Color.BLACK);
 
         // Set button actions
-        copyButton.addActionListener(buttonHandler::copyToClipboard);
+        copyButton.addActionListener(e -> {
+            System.out.println(organizer.fullListString());
+        });
         removeButton.addActionListener(e -> {
             int row = displayArea.getSelectedRow();
             if (row >= 0) {
                 String item = displayArea.getValueAt(row, 0).toString(); // TODO: adjust column index as needed
-                organizer.removeItem(item); // TODO: to implement this
+                String stringPrice = displayArea.getValueAt(row, 3).toString();
+                stringPrice = stringPrice.substring(1);
+                double price = Double.parseDouble(stringPrice); 
+                String category = displayArea.getValueAt(row, 2).toString();
+                organizer.removeItem(item, price, category); // TODO: to implement this
                 refreshDisplay();
             }
         });
-        totalButton.addActionListener(buttonHandler::calculateTotal);
-/////
+        totalButton.addActionListener(e -> {
+            System.out.println(organizer.totalCalculator());
+        });
         searchButton.addActionListener(e -> {
             String itemName = itemField.getText().trim();
+            System.out.println("Loading...");
             HttpResponse<JsonNode> response = Unirest.get("https://api-to-find-grocery-prices.p.rapidapi.com/amazon?query=" + itemName)
                 .header("x-rapidapi-key", "52616f87aamsh0800cd10f770123p1199acjsnba1b79044cb2")
                 .header("x-rapidapi-host", "api-to-find-grocery-prices.p.rapidapi.com")
                 .asJson();
             String itemList = response.getBody().toPrettyString();
             this.optionList = OptionList.getOptionList(itemList);
+            System.out.println("Done!");
            // outputCombo = new JComboBox<>(new Vector<String> (OptionList.getOptionVector(optionList)));
             outputCombo.setModel(new DefaultComboBoxModel<>(new Vector<String> (OptionList.getOptionVector(optionList))));
         });
-//////
         addItemButton.addActionListener(e -> {
             String item = (String) outputCombo.getSelectedItem();
             int quantity = Integer.parseInt(quantityLabel.getText());
