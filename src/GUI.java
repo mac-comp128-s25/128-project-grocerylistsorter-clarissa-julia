@@ -119,10 +119,10 @@ public class GUI extends JFrame {
         });
         totalButton.addActionListener(buttonHandler::calculateTotal);
         addItemButton.addActionListener(e -> {
-            String item = itemField.getText();
+            String item = (String) outputCombo.getSelectedItem();
             int quantity = Integer.parseInt(quantityLabel.getText());
             String category = (String) categoryCombo.getSelectedItem();
-            double price = 1.00;
+            double price = optionList.get(item);
             buttonHandler.addItem(item, price, quantity, category);
             itemField.setText("");
             quantityLabel.setText("1");
