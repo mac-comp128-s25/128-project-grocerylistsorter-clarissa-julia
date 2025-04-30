@@ -30,10 +30,6 @@ public class Button {
         }
     }
 
-    // public void searchAPI(String userSearch){
-    //     gui.refreshDisplay();
-    // }
-
     public void addItem(String item, double price, int quantity, String category) {
 
         if (category.equals("Select Category")) {
