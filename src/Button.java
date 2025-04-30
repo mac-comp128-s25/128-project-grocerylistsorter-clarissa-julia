@@ -30,9 +30,9 @@ public class Button {
         }
     }
 
-    public void searchAPI(String userSearch){
-        gui.refreshDisplay();
-    }
+    // public void searchAPI(String userSearch){
+    //     gui.refreshDisplay();
+    // }
 
     public void calculateTotal(ActionEvent e) {
         // Logic to calculate total

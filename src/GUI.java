@@ -127,7 +127,8 @@ public class GUI extends JFrame {
                 .asJson();
             String itemList = response.getBody().toPrettyString();
             this.optionList = OptionList.getOptionList(itemList);
-            outputCombo = new JComboBox<>(OptionList.getOptionVector(optionList));
+           // outputCombo = new JComboBox<>(new Vector<String> (OptionList.getOptionVector(optionList)));
+            outputCombo.setModel(new DefaultComboBoxModel<>(new Vector<String> (OptionList.getOptionVector(optionList))));
         });
 //////
         addItemButton.addActionListener(e -> {
