@@ -1,21 +1,15 @@
 import javax.swing.*;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.DocumentEvent;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.Map;
 import java.util.Vector;
 import com.formdev.flatlaf.FlatLightLaf;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLaf;
 
 public class GUI extends JFrame {
     private PlaceholderTextField itemField;
-    private JPanel quantityPanel;
     private JLabel quantityLabel;
     private JComboBox<String> outputCombo;
     private JComboBox<String> categoryCombo;
@@ -28,7 +22,7 @@ public class GUI extends JFrame {
     private JButton clearButton;
     private JButton plus;
     private JButton minus;
-    private int[] quantity = new int[] { 1 }; // starts at 1
+    private int[] quantity = new int[] { 1 }; 
     private Map<String, Double> optionList;
     private JLabel totalLabel;
 
@@ -39,7 +33,7 @@ public class GUI extends JFrame {
         outputCombo = new JComboBox<>(); // 
         categoryCombo = new JComboBox<>(new String[] { "Select Category", "Produce", "Dairy & Eggs", "Bakery",
             "Pantry Staples", "Meat & Seafood", "Frozen Food", "Snacks & Beverages", "Household Goods",
-            "Personal Care Items" }); // adds category drop-down menu
+            "Personal Care Items" });
         displayArea = new JTable();
         scrollPane = new JScrollPane(displayArea);
         buttonHandler = new Button(organizer, this);
@@ -48,7 +42,6 @@ public class GUI extends JFrame {
         copyButton = new JButton("Copy");
         removeButton = new JButton("Remove Selected");
         searchButton = new JButton("Search");
-        quantityPanel = new JPanel();
         quantityLabel = new JLabel("1");
         plus = new JButton("+");
         minus = new JButton("-");
@@ -95,27 +88,51 @@ public class GUI extends JFrame {
         removeButton.addActionListener(e -> {
             int row = displayArea.getSelectedRow();
             if (row >= 0) {
-                String item = displayArea.getValueAt(row, 0).toString(); // TODO: adjust column index as needed
+                String item = displayArea.getValueAt(row, 0).toString(); 
                 String stringPrice = displayArea.getValueAt(row, 3).toString();
                 stringPrice = stringPrice.substring(1);
                 double price = Double.parseDouble(stringPrice); 
                 String category = displayArea.getValueAt(row, 2).toString();
-                organizer.removeItem(item, price, category); // TODO: to implement this
+                organizer.removeItem(item, price, category); 
                 refreshDisplay();
             }
         });
+
         searchButton.addActionListener(e -> {
             String itemName = itemField.getText().trim();
-            System.out.println("Loading...");
-            HttpResponse<JsonNode> response = Unirest.get("https://api-to-find-grocery-prices.p.rapidapi.com/amazon?query=" + itemName)
-                .header("x-rapidapi-key", "52616f87aamsh0800cd10f770123p1199acjsnba1b79044cb2")
-                .header("x-rapidapi-host", "api-to-find-grocery-prices.p.rapidapi.com")
-                .asJson();
-            String itemList = response.getBody().toPrettyString();
-            this.optionList = OptionList.getOptionList(itemList);
-            System.out.println("Done!");
-           // outputCombo = new JComboBox<>(new Vector<String> (OptionList.getOptionVector(optionList)));
-            outputCombo.setModel(new DefaultComboBoxModel<>(new Vector<String> (OptionList.getOptionVector(optionList))));
+        
+            // Create a modal loading dialog
+            JDialog loadingDialog = new JDialog(this, "Searching...", true);
+            JLabel loadingLabel = new JLabel("Please wait while we search for " + itemName + "...");
+            loadingLabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+            loadingDialog.add(loadingLabel);
+            loadingDialog.pack();
+            loadingDialog.setLocationRelativeTo(this);
+        
+            // Create a background worker to perform the API call
+            SwingWorker<Void, Void> worker = new SwingWorker<>() {
+                @Override
+                protected Void doInBackground() throws Exception {
+                    HttpResponse<JsonNode> response = Unirest.get("https://api-to-find-grocery-prices.p.rapidapi.com/amazon?query=" + itemName)
+                        .header("x-rapidapi-key", "52616f87aamsh0800cd10f770123p1199acjsnba1b79044cb2")
+                        .header("x-rapidapi-host", "api-to-find-grocery-prices.p.rapidapi.com")
+                        .asJson();
+        
+                    String itemList = response.getBody().toPrettyString();
+                    optionList = OptionList.getOptionList(itemList);
+                    return null;
+                }
+        
+                @Override
+                protected void done() {
+                    loadingDialog.dispose(); // Close the loading dialog
+                    outputCombo.setModel(new DefaultComboBoxModel<>(new Vector<>(OptionList.getOptionVector(optionList))));
+                }
+            };
+        
+            // Start worker and show dialog
+            worker.execute();
+            loadingDialog.setVisible(true);
         });
         addItemButton.addActionListener(e -> {
             String item = (String) outputCombo.getSelectedItem();
@@ -190,6 +207,13 @@ public class GUI extends JFrame {
         String[] columnNames = { "Item", "Quantity", "Category", "Price" };
         DefaultTableModel model = new DefaultTableModel(tableData, columnNames);
         displayArea.setModel(model); // forces the table to refresh
+
+        //resize columns
+        displayArea.getColumnModel().getColumn(0).setPreferredWidth(300);
+        displayArea.getColumnModel().getColumn(1).setPreferredWidth(60);
+        displayArea.getColumnModel().getColumn(2).setPreferredWidth(150);
+        displayArea.getColumnModel().getColumn(3).setPreferredWidth(80);
+        
         double total = organizer.totalCalculator();
         totalLabel.setText(String.format("Total: $%.2f", total));
     }
