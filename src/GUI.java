@@ -97,6 +97,9 @@ public class GUI extends JFrame {
 
         totalLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
 
+        // customize item field
+        itemField.setBackground(new Color(255,250,227));
+        
         // Set button actions
         copyButton.addActionListener(e -> {
             System.out.println(organizer.fullListString());
@@ -259,14 +262,14 @@ public class GUI extends JFrame {
             UIManager.put("Button.padding", new Insets(10, 20, 10, 20));
 
             // Global font and text color
-        Font uiFont = new Font("SansSerif", Font.PLAIN, 16); // or load custom font
-        Color textColor = new Color(1, 50, 32);
+            Font uiFont = new Font("SansSerif", Font.PLAIN, 16);
+            Color textColor = new Color(1, 50, 32);
 
-        for (Object key : UIManager.getLookAndFeelDefaults().keySet()) {
-            if (key.toString().toLowerCase().contains("font")) {
+            for (Object key : UIManager.getLookAndFeelDefaults().keySet()) {
+                if (key.toString().toLowerCase().contains("font")) {
                 UIManager.put(key, uiFont);
             }
-            if (key.toString().toLowerCase().contains("foreground")) {
+                if (key.toString().toLowerCase().contains("foreground")) {
                 UIManager.put(key, textColor);
             }
         }
