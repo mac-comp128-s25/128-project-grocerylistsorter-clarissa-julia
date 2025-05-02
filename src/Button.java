@@ -4,6 +4,8 @@ import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 public class Button {
     private List<String> items = new ArrayList<>();
     private List<String> prices = new ArrayList<>();
@@ -17,10 +19,16 @@ public class Button {
     }
 
     public void copyToClipboard(ActionEvent e) {
-        String text = String.join("\n", items);
+        String text = organizer.fullListString(); // correct source of table content
         StringSelection selection = new StringSelection(text);
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
+        System.out.println("Copied to clipboard:\n" + text); // optional debug
+        JOptionPane.showMessageDialog(gui, 
+        "Content copied to clipboard!", 
+        "Success", 
+        JOptionPane.INFORMATION_MESSAGE);
     }
+    
 
     public void addItem(String item, double price, int quantity, String category) {
 

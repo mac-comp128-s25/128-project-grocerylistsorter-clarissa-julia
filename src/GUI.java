@@ -101,9 +101,8 @@ public class GUI extends JFrame {
         itemField.setBackground(new Color(255,250,227));
 
         // Set button actions
-        copyButton.addActionListener(e -> {
-            System.out.println(organizer.fullListString());
-        });
+        copyButton.addActionListener(e -> buttonHandler.copyToClipboard(e));
+
         removeButton.addActionListener(e -> {
             int row = displayArea.getSelectedRow();
             if (row >= 0) {
