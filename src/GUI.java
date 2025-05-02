@@ -194,7 +194,6 @@ public class GUI extends JFrame {
         inputPanel.add(addItemButton);
         inputPanel.setBackground(new Color(138,154,91));
 
-
         // Create button panel and add buttons
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
@@ -250,6 +249,7 @@ public class GUI extends JFrame {
             UIManager.put("TabbedPane.tabArc", 20);
             UIManager.put("CheckBox.arc", 20);
             UIManager.put("ComboBox.arc", 20);
+            UIManager.put("ComboBox.background", new Color(255, 250, 227));
             UIManager.put("PopupMenu.borderArc", 20);
             UIManager.put("Component.innerFocusWidth", 2);
             UIManager.put("Component.focusWidth", 2);
@@ -258,6 +258,18 @@ public class GUI extends JFrame {
             UIManager.put("ComboBox.padding", new Insets(10, 10, 10, 10));
             UIManager.put("Button.padding", new Insets(10, 20, 10, 20));
 
+            // Global font and text color
+        Font uiFont = new Font("SansSerif", Font.PLAIN, 16); // or load custom font
+        Color textColor = new Color(1, 50, 32);
+
+        for (Object key : UIManager.getLookAndFeelDefaults().keySet()) {
+            if (key.toString().toLowerCase().contains("font")) {
+                UIManager.put(key, uiFont);
+            }
+            if (key.toString().toLowerCase().contains("foreground")) {
+                UIManager.put(key, textColor);
+            }
+        }
             FlatLightLaf.setup();
         } catch (Exception ex) {
             ex.printStackTrace();
