@@ -67,7 +67,13 @@ public class GUI extends JFrame {
         clearButton.setForeground(Color.WHITE);
 
         copyButton.putClientProperty("JButton.buttonType", "roundRect");
+        // copyButton.setBackground(Color.LIGHT_GRAY);
+        // copyButton.setForeground(Color.WHITE);
+
         removeButton.putClientProperty("JButton.buttonType", "roundRect");
+        // removeButton.setBackground(Color.LIGHT_GRAY);
+        // removeButton.setForeground(Color.WHITE);
+
         plus.putClientProperty("JButton.buttonType", "roundRect");
         minus.putClientProperty("JButton.buttonType", "roundRect");
 
