@@ -53,7 +53,7 @@ public class ListOrganizer {
                 total += item.getPrice();
             }
         }
-        return total;
+        return (total*100)/100.0;
     }
 
     public List<Item> getList(String category){
