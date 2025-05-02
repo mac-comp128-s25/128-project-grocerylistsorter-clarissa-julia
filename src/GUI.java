@@ -59,32 +59,41 @@ public class GUI extends JFrame {
 
         // Style Buttons:
         addItemButton.putClientProperty("JButton.buttonType", "roundRect");
-        addItemButton.setBackground(new Color(76, 175, 80));
-        addItemButton.setForeground(Color.WHITE);
+        addItemButton.setBackground(new Color(255, 250, 227));
+        addItemButton.setForeground(new Color(1,50,32));
 
         clearButton.putClientProperty("JButton.buttonType", "roundRect");
-        clearButton.setBackground(new Color(244, 67, 54));
-        clearButton.setForeground(Color.WHITE);
+        clearButton.setBackground(new Color(255, 250, 227));
+        clearButton.setForeground(new Color(1,50,32));
 
         copyButton.putClientProperty("JButton.buttonType", "roundRect");
-        // copyButton.setBackground(Color.LIGHT_GRAY);
-        // copyButton.setForeground(Color.WHITE);
+        copyButton.setBackground(new Color(255, 250, 227));
+        copyButton.setForeground(new Color(1,50,32));
 
         removeButton.putClientProperty("JButton.buttonType", "roundRect");
-        // removeButton.setBackground(Color.LIGHT_GRAY);
-        // removeButton.setForeground(Color.WHITE);
+        removeButton.setBackground(new Color(255, 250, 227));
+        removeButton.setForeground(new Color(1,50,32));
 
         plus.putClientProperty("JButton.buttonType", "roundRect");
+        plus.setBackground(new Color(255, 250, 227));
+        plus.setForeground(new Color(1,50,32));
+
         minus.putClientProperty("JButton.buttonType", "roundRect");
+        minus.setBackground(new Color(255, 250, 227));
+        minus.setForeground(new Color(1,50,32));
+
+        searchButton.putClientProperty("JButton.buttonType", "roundRect");
+        searchButton.setBackground(new Color(255, 250, 227));
+        searchButton.setForeground(new Color(1,50,32));
 
         // Styling table
         displayArea.setFillsViewportHeight(true);
         displayArea.setRowHeight(30);
         displayArea.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 16));
         displayArea.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        displayArea.setSelectionBackground(new Color(220, 240, 255));
+        displayArea.setSelectionBackground(new Color(188, 200, 138));
         displayArea.setSelectionForeground(Color.BLACK);
-        displayArea.setBackground(new Color(242,250,233));
+        displayArea.setBackground(new Color(255,250,227));
 
         totalLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
 
@@ -171,7 +180,7 @@ public class GUI extends JFrame {
         quantitySearchPanel.add(quantityLabel);
         quantitySearchPanel.add(plus);
         quantitySearchPanel.add(searchButton);
-        quantitySearchPanel.setBackground(new Color(231,255,206));
+        quantitySearchPanel.setBackground(new Color(138,154,91));
 
         // Create input panel and add components
         JPanel inputPanel = new JPanel();
@@ -183,7 +192,7 @@ public class GUI extends JFrame {
         inputPanel.add(outputCombo);
         inputPanel.add(categoryCombo);
         inputPanel.add(addItemButton);
-        inputPanel.setBackground(new Color(231,255,206));
+        inputPanel.setBackground(new Color(138,154,91));
 
 
         // Create button panel and add buttons
@@ -192,13 +201,14 @@ public class GUI extends JFrame {
         buttonPanel.add(copyButton);
         buttonPanel.add(removeButton);
         buttonPanel.add(clearButton);
-        buttonPanel.setBackground(new Color(231,255,206));
+        buttonPanel.setBackground(new Color(138,154,91));
 
 
         // create bottom total panel
         JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         bottomPanel.add(totalLabel, BorderLayout.EAST);
+        bottomPanel.setBackground(new Color(138,154,91));
 
         // Add panels to the frame
         add(inputPanel, BorderLayout.WEST);
@@ -243,7 +253,7 @@ public class GUI extends JFrame {
             UIManager.put("PopupMenu.borderArc", 20);
             UIManager.put("Component.innerFocusWidth", 2);
             UIManager.put("Component.focusWidth", 2);
-            UIManager.put("Component.focusColor", new Color(76, 175, 80));
+            UIManager.put("Component.focusColor", new Color(1, 68, 33));
             UIManager.put("TextField.margin", new Insets(10, 10, 10, 10));
             UIManager.put("ComboBox.padding", new Insets(10, 10, 10, 10));
             UIManager.put("Button.padding", new Insets(10, 20, 10, 20));
