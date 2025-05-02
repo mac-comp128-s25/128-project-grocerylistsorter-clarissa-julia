@@ -36,9 +36,8 @@ public class OptionList {
     }
 
     private static HttpRequest<GetRequest> header(String string, String string2) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'header'");
-    }
+    } //TODO is this ever used?
 
 
 }

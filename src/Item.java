@@ -27,12 +27,12 @@ public class Item {
     /**
      * @return String name
      */
-    public String getName(){ //primarily for clarification
+    public String getName(){
         return name;
     } 
 
     /**
-     * @return double bulk price
+     * @return double bulkPrice
      */
     public double getPrice(){ //for total calculator
         return bulkPrice;
@@ -53,7 +53,7 @@ public class Item {
     }    
 
     /**
-     * @return String item title
+     * @return String title
      */
     public String getTitle(){
         return name + " x" + quantity + "\n$" + bulkPrice;

@@ -197,7 +197,6 @@ public class ListOrganizer {
             tableData[i][2] = item.getCategory();
             tableData[i][3] = String.format("$%.2f", item.getPrice());
         }
-    
         return tableData;
     }
     
