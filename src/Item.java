@@ -7,38 +7,54 @@ public class Item {
     private double bulkPrice;
     private String category;
 
+    /**
+     * Creates Item object to be added to ListOrganizer
+     * @param name
+     * @param quantity
+     * @param individualPrice
+     * @param category
+     */
     public Item(String name, int quantity, double individualPrice, String category){
         if (quantity == 0){
             quantity = 1;}
         this.name = name;
         this.quantity = quantity;
         this.category = category;
-        this. individualPrice = individualPrice;
+        this.individualPrice = individualPrice;
         bulkPrice = individualPrice * this.quantity;
     }
 
+    /**
+     * @return String name
+     */
     public String getName(){ //primarily for clarification
         return name;
     } 
 
+    /**
+     * @return double bulk price
+     */
     public double getPrice(){ //for total calculator
         return bulkPrice;
     }
 
+    /**
+     * @return String category
+     */
     public String getCategory(){
         return category;
     }
 
-    private void setQuantity(int newQuantity){
-        quantity = newQuantity;
-        bulkPrice = individualPrice*quantity;
-        //update ui somehow
-    }
-
+    /**
+     * @return int quantity
+     */
     public int getQuantity() {
         return quantity;
     }    
 
+    /**
+     * @return String item title
+     */
     public String getTitle(){
         return name + " x" + quantity + "\n$" + bulkPrice;
     }

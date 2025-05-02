@@ -184,7 +184,7 @@ public class ListOrganizer {
     
     /**
      * Helper method to update the visual of the table
-     * @return String[][] table data
+     * @return String[][] of table data
      */
     public String[][] toTableData() {
         List<Item> items = getAllItems();
