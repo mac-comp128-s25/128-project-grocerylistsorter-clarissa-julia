@@ -14,11 +14,11 @@ public class ListOrganizer {
     private List<Item> snacksBeveragesList;
     private List<Item> householdGoodsList;
     private List<Item> personalCareList;
-    private List<List<Item>> listOrganizer;
-
-    //how best to do undo button - maybe list that is just strings
-
-
+    private List<List<Item>> listOrganizer; 
+    
+    /**
+     * Creates a ListOrganizer object that stores the nine category lists
+     */
     public ListOrganizer(){
         produceList = new ArrayList<>();
         meatSeafoodList = new ArrayList<>();
@@ -29,23 +29,33 @@ public class ListOrganizer {
         snacksBeveragesList = new ArrayList<>();
         householdGoodsList = new ArrayList<>();
         personalCareList = new ArrayList<>();
-
         listOrganizer = Arrays.asList(produceList, meatSeafoodList, 
         dairyEggsList, bakeryList, pantryStaplesList, frozenFoodList, 
         snacksBeveragesList, householdGoodsList, personalCareList);   
-
     }
 
+    /**
+     * Adds the item to the corresponding category list
+     * @param item
+     */
     public void addToList(Item item){
         String category = item.getCategory();
         getList(category).add(item);
     }
 
+    /**
+     * Removes the item to the corresponding category list
+     * @param item
+     */
     public void remove(Item item){
         String category = item.getCategory();
         getList(category).remove(item);
     }
 
+    /**
+     * Calculates the total of all items in all lists
+     * @return double total
+     */
     public double totalCalculator(){
         double total = 0;
         for (List<Item> list : listOrganizer){
@@ -56,6 +66,11 @@ public class ListOrganizer {
         return (total*100)/100.0;
     }
 
+    /**
+     * Retrieves the list of the corresponding category
+     * @param category
+     * @return List of corresponding category
+     */
     public List<Item> getList(String category){
         if (category=="Produce"){
             return produceList;
@@ -87,13 +102,14 @@ public class ListOrganizer {
         else{
             throw new InvalidParameterException("Invalid category");
         }
-
     }
 
-    // creates a string of the enture section
+    /**
+     * Creates a formatted String of all items and the total
+     * @return String of all items and total
+     */
     public String fullListString() {
         StringBuilder output = new StringBuilder();
-    
         addSection(output, "Produce", produceList);
         addSection(output, "Dairy & Eggs", dairyEggsList);
         addSection(output, "Bakery", bakeryList);
@@ -103,11 +119,15 @@ public class ListOrganizer {
         addSection(output, "Household Goods", householdGoodsList);
         addSection(output, "Personal Care Items", personalCareList);
         addSection(output, "Total");
-    
         return output.toString();
     }
     
-    // helper method for fullListString to create section headers and put on new lines
+    /**
+     * Helper method for fullListString to create section headers and put on new lines
+     * @param output
+     * @param header
+     * @param items
+     */
     private void addSection(StringBuilder output, String header, List<Item> items) {
         if (!items.isEmpty()) {
             output.append("== ").append(header).append(" ==\n");
@@ -125,12 +145,21 @@ public class ListOrganizer {
         output.append("\n");
     }
     
+    /**
+     * Clears all lists
+     */
     public void clearAll() {
         for (List<Item> list : listOrganizer) {
             list.clear();
         }
     }
     
+    /**
+     * Removes a specific item from display and list
+     * @param itemName
+     * @param price
+     * @param category
+     */
     public void removeItem(String itemName, double price, String category) {
         List<Item> list = getList(category);
         for (Item item : list) {
@@ -141,6 +170,10 @@ public class ListOrganizer {
         }
     }    
 
+    /**
+     * Gets a list of all items in ListOrganizer
+     * @return List of all items
+     */
     public List<Item> getAllItems() {
         List<Item> allItems = new ArrayList<>();
         for (List<Item> list : listOrganizer) {
@@ -149,8 +182,10 @@ public class ListOrganizer {
         return allItems;
     }
     
-
-    // helps to update the visual of the table
+    /**
+     * Helper method to update the visual of the table
+     * @return String[][] table data
+     */
     public String[][] toTableData() {
         List<Item> items = getAllItems();
         String[][] tableData = new String[items.size()][4]; 
