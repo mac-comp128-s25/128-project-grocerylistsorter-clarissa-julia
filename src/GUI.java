@@ -84,6 +84,7 @@ public class GUI extends JFrame {
         displayArea.setFont(new Font("SansSerif", Font.PLAIN, 14));
         displayArea.setSelectionBackground(new Color(220, 240, 255));
         displayArea.setSelectionForeground(Color.BLACK);
+        displayArea.setBackground(new Color(242,250,233));
 
         totalLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
 
@@ -170,6 +171,7 @@ public class GUI extends JFrame {
         quantitySearchPanel.add(quantityLabel);
         quantitySearchPanel.add(plus);
         quantitySearchPanel.add(searchButton);
+        quantitySearchPanel.setBackground(new Color(231,255,206));
 
         // Create input panel and add components
         JPanel inputPanel = new JPanel();
@@ -181,6 +183,8 @@ public class GUI extends JFrame {
         inputPanel.add(outputCombo);
         inputPanel.add(categoryCombo);
         inputPanel.add(addItemButton);
+        inputPanel.setBackground(new Color(231,255,206));
+
 
         // Create button panel and add buttons
         JPanel buttonPanel = new JPanel();
@@ -188,6 +192,8 @@ public class GUI extends JFrame {
         buttonPanel.add(copyButton);
         buttonPanel.add(removeButton);
         buttonPanel.add(clearButton);
+        buttonPanel.setBackground(new Color(231,255,206));
+
 
         // create bottom total panel
         JPanel bottomPanel = new JPanel(new BorderLayout());
