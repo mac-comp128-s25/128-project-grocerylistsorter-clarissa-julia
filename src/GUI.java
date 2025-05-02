@@ -99,7 +99,7 @@ public class GUI extends JFrame {
 
         // customize item field
         itemField.setBackground(new Color(255,250,227));
-        
+
         // Set button actions
         copyButton.addActionListener(e -> {
             System.out.println(organizer.fullListString());
@@ -153,15 +153,33 @@ public class GUI extends JFrame {
             worker.execute();
             loadingDialog.setVisible(true);
         });
-        addItemButton.addActionListener(e -> {
-            String item = (String) outputCombo.getSelectedItem();
-            int quantity = Integer.parseInt(quantityLabel.getText());
-            String category = (String) categoryCombo.getSelectedItem();
-            double price = optionList.get(item);
-            buttonHandler.addItem(item, price, quantity, category);
-            itemField.setText("");
-            quantityLabel.setText("1");
-        });
+       addItemButton.addActionListener(e -> {
+    String item = (String) outputCombo.getSelectedItem();
+    int quantity = Integer.parseInt(quantityLabel.getText());
+    String category = (String) categoryCombo.getSelectedItem();
+
+    if (category.equals("Select Category")) {
+        JOptionPane.showMessageDialog(this,
+            "Please select a valid category before adding the item.",
+            "Missing Category",
+            JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    if (item == null || item.isEmpty() || !optionList.containsKey(item)) {
+        JOptionPane.showMessageDialog(this,
+            "Please select a valid item from the dropdown before adding.",
+            "Invalid Item",
+            JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    double price = optionList.get(item);
+    buttonHandler.addItem(item, price, quantity, category);
+    itemField.setText("");
+    quantityLabel.setText("1");
+});
+
         clearButton.addActionListener(e -> buttonHandler.clearAllLists());
         plus.addActionListener(e -> {
             quantity[0]++;
