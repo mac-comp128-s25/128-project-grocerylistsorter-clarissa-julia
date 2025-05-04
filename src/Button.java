@@ -1,15 +1,9 @@
 import java.awt.datatransfer.*;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JOptionPane;
 
 public class Button {
-    private List<String> items = new ArrayList<>();
-    private List<String> prices = new ArrayList<>();
-    private List<String> history = new ArrayList<>();
     private ListOrganizer organizer;
     private GUI gui;
 

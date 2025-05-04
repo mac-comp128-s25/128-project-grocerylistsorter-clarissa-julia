@@ -3,7 +3,6 @@ public class Item {
 
     private String name;
     private int quantity;
-    private double individualPrice;
     private double bulkPrice;
     private String category;
 
@@ -20,7 +19,6 @@ public class Item {
         this.name = name;
         this.quantity = quantity;
         this.category = category;
-        this.individualPrice = individualPrice;
         bulkPrice = individualPrice * this.quantity;
     }
 

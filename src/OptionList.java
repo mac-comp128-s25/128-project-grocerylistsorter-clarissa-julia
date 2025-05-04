@@ -3,14 +3,13 @@ import java.util.Map;
 import java.util.Vector;
 
 import org.json.*;
-import kong.unirest.Unirest;
-import kong.unirest.GetRequest;
-import kong.unirest.HttpRequest;
-import kong.unirest.HttpResponse;
-import kong.unirest.JsonNode;
 
 public class OptionList {
-
+    /**
+     * Returns a Map of the search result name and price to be converted to Vector
+     * @param prettyString
+     * @return Map optionList
+     */
     public static Map<String, Double> getOptionList(String prettyString){
 
         Map<String, Double> optionList = new HashMap<>();
@@ -27,6 +26,11 @@ public class OptionList {
         return optionList;
     }
 
+    /**
+     * Converts the itemList Map to a Vector to be used by the GUI
+     * @param optionList
+     * @return Vector optionVector
+     */
     public static Vector<String> getOptionVector(Map<String, Double> optionList){
         Vector<String> optionVector = new Vector<>();
         for (String itemName : optionList.keySet()){
@@ -34,10 +38,4 @@ public class OptionList {
         }
         return optionVector;
     }
-
-    private static HttpRequest<GetRequest> header(String string, String string2) {
-        throw new UnsupportedOperationException("Unimplemented method 'header'");
-    } //TODO is this ever used?
-
-
 }

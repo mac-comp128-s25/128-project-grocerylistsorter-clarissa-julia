@@ -3,10 +3,11 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class PlaceholderTextField extends JTextField {
-    private String placeholder;
-
+    /**
+     * Creates the search box for user input
+     * @param placeholder
+     */
     public PlaceholderTextField(String placeholder) {
-        this.placeholder = placeholder;
         setText(placeholder);
         setForeground(Color.GRAY);
         addFocusListener(new FocusAdapter() {
