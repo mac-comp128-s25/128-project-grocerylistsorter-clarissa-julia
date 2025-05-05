@@ -32,7 +32,7 @@ public class Item {
     /**
      * @return double bulkPrice
      */
-    public double getPrice(){ //for total calculator
+    public double getPrice(){
         return bulkPrice;
     }
 

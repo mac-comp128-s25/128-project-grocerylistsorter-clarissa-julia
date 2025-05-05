@@ -25,6 +25,10 @@ public class GUI extends JFrame {
     private int[] quantity = new int[] { 1 }; 
     private Map<String, Double> optionList;
     private JLabel totalLabel;
+    private final Color backgroundColor = new Color(138,154,91);
+    private final Color buttonColor = new Color(255, 250, 227);
+    private final Color textColor = new Color(1,50,32);
+    private final Color redColor = Color.RED;
 
     public GUI() {
         // Initialize components
@@ -59,32 +63,32 @@ public class GUI extends JFrame {
 
         // Style Buttons:
         addItemButton.putClientProperty("JButton.buttonType", "roundRect");
-        addItemButton.setBackground(new Color(255, 250, 227));
-        addItemButton.setForeground(new Color(1,50,32));
+        addItemButton.setBackground(buttonColor);
+        addItemButton.setForeground(textColor);
 
         clearButton.putClientProperty("JButton.buttonType", "roundRect");
-        clearButton.setBackground(new Color(255, 250, 227));
-        clearButton.setForeground(new Color(1,50,32));
+        clearButton.setBackground(buttonColor);
+        clearButton.setForeground(textColor);
 
         copyButton.putClientProperty("JButton.buttonType", "roundRect");
-        copyButton.setBackground(new Color(255, 250, 227));
-        copyButton.setForeground(new Color(1,50,32));
+        copyButton.setBackground(buttonColor);
+        copyButton.setForeground(textColor);
 
         removeButton.putClientProperty("JButton.buttonType", "roundRect");
-        removeButton.setBackground(new Color(255, 250, 227));
-        removeButton.setForeground(new Color(1,50,32));
+        removeButton.setBackground(buttonColor);
+        removeButton.setForeground(textColor);
 
         plus.putClientProperty("JButton.buttonType", "roundRect");
-        plus.setBackground(new Color(255, 250, 227));
-        plus.setForeground(new Color(1,50,32));
+        plus.setBackground(buttonColor);
+        plus.setForeground(textColor);
 
         minus.putClientProperty("JButton.buttonType", "roundRect");
-        minus.setBackground(new Color(255, 250, 227));
-        minus.setForeground(new Color(1,50,32));
+        minus.setBackground(buttonColor);
+        minus.setForeground(textColor);
 
         searchButton.putClientProperty("JButton.buttonType", "roundRect");
-        searchButton.setBackground(new Color(255, 250, 227));
-        searchButton.setForeground(new Color(1,50,32));
+        searchButton.setBackground(buttonColor);
+        searchButton.setForeground(textColor);
 
         // Styling table
         displayArea.setFillsViewportHeight(true);
@@ -200,7 +204,7 @@ public class GUI extends JFrame {
         quantitySearchPanel.add(quantityLabel);
         quantitySearchPanel.add(plus);
         quantitySearchPanel.add(searchButton);
-        quantitySearchPanel.setBackground(new Color(138,154,91));
+        quantitySearchPanel.setBackground(backgroundColor);
 
         // Create input panel and add components
         JPanel inputPanel = new JPanel();
@@ -212,7 +216,7 @@ public class GUI extends JFrame {
         inputPanel.add(outputCombo);
         inputPanel.add(categoryCombo);
         inputPanel.add(addItemButton);
-        inputPanel.setBackground(new Color(138,154,91));
+        inputPanel.setBackground(backgroundColor);
 
         // Create button panel and add buttons
         JPanel buttonPanel = new JPanel();
@@ -220,14 +224,14 @@ public class GUI extends JFrame {
         buttonPanel.add(copyButton);
         buttonPanel.add(removeButton);
         buttonPanel.add(clearButton);
-        buttonPanel.setBackground(new Color(138,154,91));
+        buttonPanel.setBackground(backgroundColor);
 
 
         // create bottom total panel
         JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         bottomPanel.add(totalLabel, BorderLayout.EAST);
-        bottomPanel.setBackground(new Color(138,154,91));
+        bottomPanel.setBackground(backgroundColor);
 
         // Add panels to the frame
         add(inputPanel, BorderLayout.WEST);
