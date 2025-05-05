@@ -1,7 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
-
 import org.json.*;
 
 public class OptionList {
