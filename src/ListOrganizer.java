@@ -138,7 +138,11 @@ public class ListOrganizer {
         }
     }
 
-    //overloaded method
+    /**
+     * Helper method for fullListString to create section headers and put on new lines
+     * @param output
+     * @param header
+     */    
     private void addSection(StringBuilder output, String header) {
         output.append("== ").append(header).append(" ==\n");
         output.append("$"+totalCalculator()).append("\n");

@@ -7,11 +7,15 @@ public class Button {
     private ListOrganizer organizer;
     private GUI gui;
 
+    
     public Button(ListOrganizer organizer, GUI gui) {
         this.organizer = organizer;
         this.gui = gui;
     }
 
+    /**
+     * Method to be used by copy button in GUI. Creates pop up confirmation message when done
+     */
     public void copyToClipboard(ActionEvent e) {
         String text = organizer.fullListString(); // correct source of table content
         StringSelection selection = new StringSelection(text);
@@ -23,7 +27,13 @@ public class Button {
         JOptionPane.INFORMATION_MESSAGE);
     }
     
-
+    /**
+     * Checks if all options have been selected and adds it to the list
+     * @param item 
+     * @param price
+     * @param quantity
+     * @param category
+     */
     public void addItem(String item, double price, int quantity, String category) {
 
         if (category.equals("Select Category")) {
@@ -36,6 +46,9 @@ public class Button {
     }
     
 
+    /**
+     * Method to clear all items from the list and refresh the display
+     */
     public void clearAllLists() {
         organizer.clearAll();
         gui.refreshDisplay();
