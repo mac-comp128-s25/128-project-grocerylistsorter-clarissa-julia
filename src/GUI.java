@@ -26,10 +26,12 @@ public class GUI extends JFrame {
     private Map<String, Double> optionList;
     private JLabel totalLabel;
     private final Color backgroundColor = new Color(138,154,91);
-    private final Color buttonColor = new Color(255, 250, 227);
+    private final Color buttonColor = new Color(255, 250, 227); 
     private final Color textColor = new Color(1,50,32);
-    private final Color redColor = Color.RED;
 
+    /**
+     * Constructor for GUI class. Sets up items and customizes them
+     */
     public GUI() {
         // Initialize components
         organizer = new ListOrganizer();
@@ -97,12 +99,12 @@ public class GUI extends JFrame {
         displayArea.setFont(new Font("SansSerif", Font.PLAIN, 14));
         displayArea.setSelectionBackground(new Color(188, 200, 138));
         displayArea.setSelectionForeground(Color.BLACK);
-        displayArea.setBackground(new Color(255,250,227));
+        displayArea.setBackground(buttonColor);
 
         totalLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
 
         // customize item field
-        itemField.setBackground(new Color(255,250,227));
+        itemField.setBackground(buttonColor);
 
         // Set button actions
         copyButton.addActionListener(e -> buttonHandler.copyToClipboard(e));
@@ -156,7 +158,9 @@ public class GUI extends JFrame {
             worker.execute();
             loadingDialog.setVisible(true);
         });
-       addItemButton.addActionListener(e -> {
+
+
+    addItemButton.addActionListener(e -> {
     String item = (String) outputCombo.getSelectedItem();
     int quantity = Integer.parseInt(quantityLabel.getText());
     String category = (String) categoryCombo.getSelectedItem();
@@ -246,7 +250,9 @@ public class GUI extends JFrame {
         setVisible(true);
     }
 
-    // // updates display
+    /*
+     * Refreshes display
+     */
     public void refreshDisplay() {
         String[][] tableData = organizer.toTableData(); // get updated data
         String[] columnNames = { "Item", "Quantity", "Category", "Price" };
@@ -263,6 +269,9 @@ public class GUI extends JFrame {
         totalLabel.setText(String.format("Total: $%.2f", total));
     }
 
+    /*
+     * Main method for program
+     */
     public static void main(String[] args) {
         try {
             UIManager.put("Component.arc", 20);
