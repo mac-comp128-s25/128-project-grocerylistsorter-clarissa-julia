@@ -9,8 +9,15 @@ repositories {
 
 dependencies {
     implementation group: 'com.github.mac-comp127', name: 'kilt-graphics', version: '1.+'
+    implementation 'com.konghq:unirest-java:3.14.5'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.formdev:flatlaf:3.4'
+    implementation 'com.formdev:flatlaf-intellij-themes:3.4'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.9.+'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // https://mvnrepository.com/artifact/org.json/json
+    implementation group: 'org.json', name: 'json', version: '20250107'
 }
 
 test {
